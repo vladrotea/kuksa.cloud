@@ -83,7 +83,7 @@ public class InfluxDBClient implements MessageHandler {
             pointBuilder.addField(entry.getKey(), entry.getValue().toString());
         }
         Point point = pointBuilder.build();
-
+        LOGGER.info(point.toString());
         influxDB.write(dbName, "autogen", point);
     }
 

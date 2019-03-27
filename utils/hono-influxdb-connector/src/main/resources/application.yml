@@ -1,0 +1,85 @@
+spring:
+  jmx:
+    enabled: false
+  profiles:
+    active: receiver,ssl
+
+hono:
+  client:
+    host: localhost
+    reconnectAttempts: 5
+
+connection:
+  retryInterval: 1000
+
+tenant:
+  id: DEFAULT_TENANT
+device:
+  id: 4711
+
+---
+
+spring:
+  profiles: receiver
+
+hono:
+  client:
+    port: 15671
+
+address:
+  resolver:
+    cacheNegativeTimeToLive: 0 #discard failed DNS lookup results immediately
+    cacheMaxTimeToLive: 0 #support DNS based service resolution
+    rotateServers: true
+    queryTimeout: 2000
+
+message:
+  type: all
+
+influxdb:
+  url: http://localhost:8086
+  db:
+    name: devices
+
+---
+
+spring:
+  profiles: ssl
+hono:
+  client:
+    hostnameVerificationRequired: false
+    trustStorePath: target/config/hono-demo-certs-jar/trusted-certs.pem
+
+---
+
+spring:
+  profiles: amqp-adapter-cli
+
+hono:
+  client:
+    port: 5672
+
+message:
+  address: telemetry
+  payload: '{"temp": 5}'
+
+---
+
+spring:
+  profiles: command
+
+hono:
+  client:
+    port: 15671
+
+command:
+  timeoutInSeconds: 60
+
+tenant:
+  id: DEFAULT_TENANT
+
+device:
+  id: 4711
+
+
+
