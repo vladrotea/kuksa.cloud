@@ -48,7 +48,6 @@ import java.util.Map;
  * it (found in the User Guide section).
  */
 @Component
-@Profile("receiver")
 public class Receiver extends AbstractClient {
 
     private static final String TYPE_TELEMETRY = "telemetry";
@@ -149,7 +148,6 @@ public class Receiver extends AbstractClient {
                 payload);
 
         MessageDTO messageDTO = this.createMessageDTO(msg);
-        LOG.info(messageDTO.toString());
 
         messageHandler.process(messageDTO);
 

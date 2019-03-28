@@ -28,15 +28,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
-
-    @Value(value = "${spring.profiles.active}")
-    private String profiles;
-
-    @PostConstruct
-    private void start() throws Exception {
-        LOG.info("running command line client in role(s): {}", profiles);
-    }
-
     /**
      * Starts the client.
      * 
